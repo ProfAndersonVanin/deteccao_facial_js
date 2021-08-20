@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <title>Detecção Facial com JS</title>
+    <style>
+        video,canvas{
+            position: absolute;
+            border: 2px solid red;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Aplicação WEB para detecção Facial com JS</h1>
+        <p>Para essa aplicação será utilizada a biblioteca <a href="https://trackingjs.com/">Tracking.js</a></p>
+        <p>Ao baixar os arquivos, necessitamos apenas dos arquivos que estão dentro da pasta <b>Build</b></p>
+        <p>Alguns Exemplos de aplicação</p>
+        <ul>
+            <li>Cropping de fotos de perfil</li>
+            <li>Tag de amigos em uma foto</li>
+            <li>Detecção de Olhos, boca e faces</li>
+        </ul>
+        <video id="video" width="320" height="240" preload autoplay loop muted></video>
+        <canvas id="canvas" width="320" height="240"></canvas>
+    </div>
+    
+    <script src="tracking-min.js"></script>
+    <script src="data/face-min.js"></script>
+    <!-- Nessa biblioteca ficam armazenados os treinamentos da rede neural para a detecção de faces
+    contendo as features (características) para a detecção -->
+    <script>
+        function inicial(){
+            const video = document.getElementById('video');
+            const canvas = document.getElementById('canvas');
+            const context = canvas.getContext('2d');
+            const tracker = new tracking.ObjectTracker('face');
+            tracking.track('#video',tracker,{camera: true});
+            tracker.on('track', event =>{
+                console.log(event);
+            });
+        }
+
+        window.onload = inicial();
+    </script>
+</body>
+</html>
